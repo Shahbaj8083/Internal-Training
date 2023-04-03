@@ -122,11 +122,6 @@ if(isset($_POST['submit'])){
 </nav>
 
 
-
-
-
-
-
     <div class="container-fluid" >
         
         <div class="navbar-header">

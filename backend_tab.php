@@ -1,5 +1,7 @@
 <?php
 
+// This file is not usefull 
+
 Include ('db_connect.php');
 $insertSuccess = false;
 

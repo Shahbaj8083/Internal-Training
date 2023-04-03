@@ -1,16 +1,12 @@
 <?php
-//session cart increase decrease button
+//session cart increase decrease button code
 
     session_start();
     
-
     $id = trim($_POST['product_id']);
     $qty =$_POST['prod_qty'];
 
      $_SESSION['shopping_cart'][$id]['item_quantity'] = $qty  ;
-
-    //  echo "<pre>";
-    // print_r($_SESSION['shopping_cart']);
 
 
     //this code is to count the number of items available in the session

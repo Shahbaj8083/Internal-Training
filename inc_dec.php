@@ -1,8 +1,8 @@
 <?php
-    include('db_connect.php');
-    
+//This code is for increment and decrement of cart item using plus and minus button
 
-    // if(isset($_POST['submit'])){
+    include('db_connect.php');
+
         $qty = $_POST['prod_qty'];
         $id = $_POST['product_id'];
 
@@ -10,8 +10,8 @@
         $execute_query = mysqli_query($conn, $sql);
         if($execute_query){
             echo 200;
+        
         }else{
             echo 500;
         }
-    // }
 ?>

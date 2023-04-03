@@ -41,7 +41,7 @@ $(document).ready(function(){
 
 
 
-//for decrease the quantity of cart item, when $_SESSION['loggedin] is false
+//for decrease the quantity of cart item, when $_SESSION['loggedin] is true
 $(document).ready(function(){
     
 

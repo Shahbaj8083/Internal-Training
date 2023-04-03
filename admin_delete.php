@@ -3,6 +3,8 @@
 
     $id = $_GET['id'];
 
+    // Admin deleting the user/seller
+    
     $sql = "DELETE FROM login_credentials WHERE id = $id";
 
     $execute_query = mysqli_query($conn, $sql);

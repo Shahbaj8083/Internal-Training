@@ -1,11 +1,9 @@
-<!-- <h1>Shopping cart session code without loggedIn</h1> -->
 <?php 
 //This code is only used for cart session to store in the cart without login.
 
 include('db_connect.php');
   
 session_start();
-
 
 //-----------------------------------------------------------------
 //storing the shopping cart data in the session
@@ -83,41 +81,17 @@ else if(isset($_POST['submit']) && $_SESSION['loggedin']){
     }
     else{
         header('Location:home.php');
-        $already_present = true;
-        // echo $already_present;
     }
    
 
 }
-
-// //inserting the session data to the database when (role1)user is loggedIN
-// if($_SESSION['shopping_cart'] && ($_SESSION['role']==1)){
-
-//     $userID = $_SESSION['userID'];
-   
-
-//     foreach($_SESSION['shopping_cart'] as $keys => $values){
-
-//         $pid = $values['item_id'];
-//         $qty = $values['item_quantity'];
-
-//         $sql = "INSERT INTO cart(user_id, product_id, quantity) values($userID, $pid, $qty)";
-
-//         $execute_query = mysqli_query($conn, $sql);
-//     }
-
-//     //after inserting to database remove all items from session
-//     unset($_SESSION['shopping_cart']);
-// }
-
-
 
 
 // <!-- <h1>Deleting the cart item </h1> -->
 
 if(isset($_GET["remove"])){
 
-    //if not logged in then unset the session
+    //if not logged in then unset the session of that item
     if(!$_SESSION['loggedin']){
         foreach($_SESSION['shopping_cart'] as $keys => $values){
             if($values["item_id"] == $_GET["id"]){
@@ -127,12 +101,12 @@ if(isset($_GET["remove"])){
                 //decreasing the cart count
                 $_SESSION['cart_count'] -= $_GET["qty"];
 
-                // echo "<script>window.location = 'shopping_cart.php'</script>";
                 header('Location:shopping_cart.php');
             }
         }
     }
-    //if logged in then delete from the cart_database
+
+    //if logged in then delete the item from the cart_database
     else{
         $id = $_GET['id'];
         $user = $_SESSION['userID'];
@@ -146,10 +120,34 @@ if(isset($_GET["remove"])){
     }
 }
 
+
+//this code is for cart count only when user is logged in
+    //------------------------------------------------------------
+    if(isset($_SESSION['loggedin'])){
+       
+        include('db_connect.php');
+
+        $_SESSION['cart_count'] = 0;
+
+        $userID = $_SESSION['userID'];
+
+        $sql = "SELECT * FROM cart WHERE user_id = $userID";
+        $result = mysqli_query($conn, $sql);
+
+
+        $check_product = mysqli_num_rows($result);
+
+
+        if($check_product > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $_SESSION['cart_count'] += $row['quantity'];
+            }
+          
+        }
+    }
+//------------------------------------------------------------    
+
 ?>
-
-
-
 
 <!doctype html>
 <html lang="en">
@@ -167,74 +165,20 @@ if(isset($_GET["remove"])){
 </head>
 
 <body>
+
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand fs-2 text-primary" href="home.php">H-<span class="text-primary">CART</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5 text-end ">
+        <?php
 
-                        <?php if($_SESSION['loggedin']){ 
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link active text-primary text-light" aria-current="page"
-                                href="shopping_cart.php">Cart
-                                <i class="fa-solid fa-cart-shopping"></i>
-
-                            </a>
-                            <span style="position:absolute; top:15px; right: 123px; font-size:.6rem;" id="cart"
-                                class="badge text-bg-danger rounded-pill">
-                                <?php echo $_SESSION['cart_count']; ?>
-                            </span>
-                        </li>
-                        <!-- <h1>if $login is true show logout</h1> -->
-
-                        <li class="nav-item ">
-                            <a class="nav-link active text-light" href="logout.php">Logout <i
-                                    class="fa-regular fa-user"></i></a>
-                        </li>
-
-                        <!-- <h1>if not loggedin then show login option</h1> -->
-                        <?php } else{ ?>
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="shopping_cart.php">Cart
-                                <i class="fa-solid fa-cart-shopping"></i></a>
-
-                            <span style="position:absolute; top:18px; right: 110px; font-size:.6rem;" id="cart"
-                                class="badge text-bg-danger rounded-pill">
-                                <?php 
-                                        if($_SESSION['cart_count'] > 0){
-
-                                            echo $_SESSION['cart_count']; 
-                                        }
-                                        else{
-                                            echo 0;
-                                        }
-                                    ?>
-                            </span>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="login.php">Login <i
-                                    class="fa-regular fa-user"></i></a>
-                        </li>
-                        <?php } ?>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
+            require('homeNavbar.php') 
+            
+        ?>
     </div>
+
     <div class=" container  mt-5" style="width:60rem;">
 
         <div>
             <div class="card-header">
-                <a href="home.php" class="btn btn-dark"><i class="fa-solid fa-circle-arrow-left"> </i> Home </a>
+                <a href="home.php" class="btn btn-dark"><i class="fa-solid fa-house"></i> Home </a>
             </div>
 
             <div class=" card d-flex justify-content-center align-items-center text-danger mb-5">
@@ -243,6 +187,7 @@ if(isset($_GET["remove"])){
         </div>
 
         <table class=" table" style=" min-height:6rem;">
+
             <thead>
                 <tr>
 
@@ -254,168 +199,25 @@ if(isset($_GET["remove"])){
                     <th scope="col">Action</th>
                 </tr>
             </thead>
+
             <tbody class=" text-align-center">
+
                 <?php 
-            
+                
+                    //This is cart table of session when no one is logged in
 
+                    if((!empty($_SESSION['shopping_cart'])) && (!$_SESSION['loggedin'])){
+                
+                    require('sessionCartTable.php');
+                    }
 
-            //This is cart table of session when no one is logged in
-
-            if((!empty($_SESSION['shopping_cart'])) && (!$_SESSION['loggedin'])){
-           
-              
-    
-    
-              foreach($_SESSION['shopping_cart'] as $keys => $values){
-                ?>
-
-                <tr>
-                    <td>
-                        <img src="http://localhost/H_Cart/images/<?php echo $values['item_img']; ?>" height="60px"
-                            width="60px">
-                    </td>
-
-                    <td>
-                        <?php echo $values['item_name']; ?>
-                    </td>
-
-                    <td>
-                        <?php echo $values['item_price']; ?>
-                        <input type="hidden" class="price" value=" <?php echo $values['item_price']; ?>">
-                        <input type="hidden" class="product_id" value=" <?php echo $values['item_id']; ?>">
-                    </td>
-
-                    <td>
-
-                        <div class="product_data input-group mb-3" style="width:120px">
-
-                            <span class="input-group-text session-decrement-btn" onclick="subTotal()"> - </span>
-                            <input type="hidden" class="product_id" value=" <?php echo $keys; ?>">
-
-                            <input type="text" disabled class="form-control quantity qty"
-                                 value="<?php echo $values['item_quantity']; ?>" >
-
-                            <span class="input-group-text session-increment-btn" onclick="subTotal()"> + </span>
-
-                        </div>
-
-
-                    </td>
-                    <td class="total">0
-                        <!-- <?php echo number_format($values['item_quantity'] * $values['item_price'],2);  ?> -->
-                    </td>
-                    <td>
-                        <a
-                            href="shopping_cart.php?remove=del&id=<?php echo $values['item_id']; ?>&qty=<?php echo $values['item_quantity']; ?> "><span
-                                class="text-danger text-decoration-none"> Remove </span></a>
-                    </td>
-                </tr>
-                <?php
-                             $total +=($values["item_quantity"] * $values["item_price"]);
-              }
-              ?>
-                <tr>
-                    <th colspan="4">Total</th>
-                    <th colspan="3" class="grand_total">
-                        <?php echo '$ '.number_format($total,2); ?>
-                    </th>
-                </tr>
-
-                <?php
-            }
-
-            //session shopping_cart table ends here
-
-
-
-            //This code executes when someone logged in
-            else if($_SESSION['loggedin']){
-
-                $grand_total = 0;
-
-                $id = $_SESSION['userID'];
-
-                $cart_count = 0;//store the cart count value
-
-                $sql = "SELECT * FROM cart WHERE user_id= $id "; 
-                $query_execute = mysqli_query($conn, $sql);
-            
-                $check_product = mysqli_num_rows($query_execute); //checking number of rows
-    
-                if($check_product > 0){
                     
-                while($row = mysqli_fetch_assoc($query_execute)){
-
-                    $cart_count += $row['quantity'];
-
-                    $product_id = $row['product_id'];
-                    $mysql = "SELECT * FROM product WHERE p_id = $product_id";
-
-                    $execute_mysql = mysqli_query($conn, $mysql);
-                    
-                    foreach($execute_mysql as $key => $data){
+                    //This code executes when someone logged in
+                    else if($_SESSION['loggedin']){
                         
+                        require('loggedInCartTable.php');
+                    }
                 ?>
-
-                <tr>
-                    <td>
-                        <img src="http://localhost/H_Cart/images/<?php echo $data['img']; ?>" height="60px"
-                            width="60px">
-                    </td>
-
-                    <td>
-                        <?php echo $data['name']; ?>
-                    </td>
-
-                    <td>
-                        <?php echo $data['price']; ?>
-                        <input type="hidden" class="price" value=" <?php echo $data['price']; ?>">
-                    </td>
-
-                    <td>
-
-                        <div class="product_data input-group mb-3" style="width:120px">
-                            <input type="hidden" class="product_id" value=" <?php echo $product_id; ?>">
-
-                            <span class="input-group-text decrement-btn inc-quantity" onclick="subTotal()"> - </span>
-
-                            <input type="text" disabled class="form-control quantity qty" id="qty"
-                                value="<?php echo $row['quantity']; ?>">
-
-                            <span class="input-group-text increment-btn dec-quantity" onclick="subTotal()"> + </span>
-
-                        </div>
-
-
-                    </td>
-                    <td class="total">0
-                        <!-- <?php echo number_format($row['quantity'] * $row['price'],2);  ?> -->
-                    </td>
-                    <td>
-                        <a href="shopping_cart.php?remove=del&id=<?php echo $row['id']; ?>"><span
-                                class=" text-danger text-decoration-none" style="text-decoration:none; !important">
-                                Remove </span></a>
-                    </td>
-                </tr>
-                <?php
-                             $grand_total +=($row["quantity"] * $data["price"]);
-                }
-            }
-            $_SESSION['cart_count'] = $cart_count;
-        }
-              ?>
-                <tr>
-                    <th colspan="4">Total</th>
-                    <th colspan="3" class="grand_total">
-                        <?php echo '$ '.number_format($grand_total,2); ?>
-                    </th>
-                </tr>
-
-                <?php
-            }
-                ?>
-
-
 
             </tbody>
 
@@ -457,7 +259,6 @@ if(isset($_GET["remove"])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-
 
 
 </body>

@@ -1,4 +1,7 @@
 <?php 
+//this code is used to set the status of product and user/seller 
+//admin can activate or deactive the seller/user account
+
     include('db_connect.php');
 
     $id = $_GET['id'];
@@ -13,5 +16,4 @@
         header('Location:manage_accounts.php');
     }
     
-
 ?>

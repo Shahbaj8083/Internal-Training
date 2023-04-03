@@ -131,6 +131,7 @@
 <?php
 include ('db_connect.php');
 $insertSuccess = false;
+
 if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['update'])){
     // echo "<pre>";
     // print_r($_POST);

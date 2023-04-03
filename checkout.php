@@ -32,39 +32,7 @@
 
 <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand fs-2 text-primary" href="home.php">H-<span class="text-primary">CART</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5 text-end ">
-
-                        <!-- <li class="nav-item">
-                            <a class="nav-link active text-primary text-light" aria-current="page" 
-                                href="shopping_cart.php">Cart
-                                <i class="fa-solid fa-cart-shopping"></i>
-
-                            </a>
-                            <span style="position:absolute; top:15px; right: 123px; font-size:.6rem;" id="cart" class="badge text-bg-danger rounded-pill">
-                               
-                            </span>
-                        </li> -->
-                        <!-- <h1>if $login is true show logout</h1> -->
-                        
-                        <li class="nav-item ">
-                            <a class="nav-link active text-light"  href="logout.php" >Logout <i
-                                    class="fa-regular fa-user"></i></a>
-                        </li>
-                        
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
+        <?php require('homeNavbar.php'); ?>
     </div>
 
     <div class=" card d-flex justify-content-center align-items-center text-danger mt-5">

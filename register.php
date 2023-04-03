@@ -185,13 +185,6 @@ function test_input($data) {
                 <input type="password" class="form-control" id="mypass2" name="cpassword" >
             </div>
 
-            <!-- <div class="mb-3">
-                <label for="myadd" class="form-label">Address</label>
-                <div class="form-floating">
-                    <textarea class="form-control" id="floatingTextarea" name="address"></textarea>   
-                </div>
-            </div> -->
-
             <div class="">Role :</div>
 
             <div class="form-check">

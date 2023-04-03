@@ -18,15 +18,16 @@ session_start();
      $seller_id = $_SESSION['userID'];
      
      
-     //role = 2 means seller only, each and every seller can only fetch the procucts whatever they added, they cannot see other seller products
+     //role = 2 means seller only, each and every seller can only fetch that procucts whatever they added, they cannot see other seller products
      if($role == 2){
          $sql = "SELECT * FROM product WHERE seller_id = $seller_id AND p_status = 1;";
         }
 
-    else{
-        //selecting all the products from product table if he is not seller
-        $sql = "SELECT * FROM product WHERE p_status = 1";
-    }
+        else{
+            //selecting all the products from product table if he is not seller and product_status is active(1)
+            $sql = "SELECT * FROM product WHERE p_status = 1";
+        }
+
     //execute the query
     $query_execute = mysqli_query($conn, $sql);
 
@@ -40,13 +41,16 @@ session_start();
     //$row is variable to which I am assigning the number of rows ie if $row=10 the loop runs for 10 times
     //and fetch the data one by one
     while($row = mysqli_fetch_assoc($query_execute)){
-        
+       //note -->form should be outside of loop
+       //note --> fetch on top 
     ?>
         <div class="col-md-3 col-lg-3 col-sm-12 mt-5 " >
+            
          <form action="shopping_cart.php?action=add&id=<?php echo $row['p_id']; ?>" method="POST" enctype="multipart/form-data">
             <div class=" shadow p-2" style="background-color:white;">
 
                 <!-- <h1>from this location it is fetching product images</h1> -->
+                
                 <img src="http://localhost/H_Cart/images/<?php echo $row['img']; ?>" class="card-img-top" alt="laptop" height=250px>
                 <div class="card-body text-center">
                     <h5 class="card-title text-info">
@@ -93,7 +97,7 @@ session_start();
     }
     else{
         //if there is no data available in product table echo this.
-    echo"No product found";
+        echo"No product found";
     }?>
  </div>
 </div>
