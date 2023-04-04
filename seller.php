@@ -75,11 +75,14 @@
             </div>
         </nav>
         
-        
+       
             <div id="main-view">
             <?php  include('fetch_product.php'); ?>
             </div>
-            
+
+        <form class="container-fluid card d-flex me-auto col-10 col-md-10 col-lg-6" action="" method="post"
+             enctype="multipart/form-data">
+
             <div id="payment" style="display:none;">
                 <?php  include('add_payment_details.php'); ?>
             </div>
@@ -91,6 +94,8 @@
             <div id="product" style="display:none;">
                 <?php  include('add_product_details.php'); ?>
             </div>
+
+        </form>    
         
 
         <script>

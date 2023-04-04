@@ -46,7 +46,7 @@ session_start();
     ?>
         <div class="col-md-3 col-lg-3 col-sm-12 mt-5 " >
             
-         <form action="shopping_cart.php?action=add&id=<?php echo $row['p_id']; ?>" method="POST" enctype="multipart/form-data">
+         <form action="shopping_cart.php?action=add&id=<?php echo $row['p_id']; ?>" method="POST" enctype="multipart/form-data" id = "pForm">
             <div class=" shadow p-2" style="background-color:white;">
 
                 <!-- <h1>from this location it is fetching product images</h1> -->

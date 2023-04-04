@@ -35,9 +35,7 @@ if(isset($_POST['submit']) && !$_SESSION['loggedin']){
            $_SESSION['shopping_cart'][$count] = $item_array;
         }
         else{
-            // echo "Item already added!";
 
-            echo "<script> Alert('Item already added') </script>";
             echo "<script> window.location = 'home.php' </script>";
 
         }
@@ -170,7 +168,7 @@ if(isset($_GET["remove"])){
         <?php
 
             require('homeNavbar.php') 
-            
+
         ?>
     </div>
 
