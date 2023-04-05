@@ -122,6 +122,21 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <title>Login Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e6327647f7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <style>
+        .password{
+            position:relative;
+        }
+        .fa-eye{
+            position:absolute;
+            top:58%;
+            right:38%;
+            cursor: pointer;
+            /* color:lightgray; */
+            opacity: 0.8;
+        }
+    </style>
 </head>
 
 <body>
@@ -155,7 +170,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                <input type="password" class="form-control password" id="id_password" name="password">
+                <i class="far fa-eye" id="togglePassword" ></i>
                 <span style="color:red;"> <?php echo $passError; ?></span>
             </div>
 
@@ -168,6 +184,20 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
         </form>
     </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#id_password');
+
+        togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
