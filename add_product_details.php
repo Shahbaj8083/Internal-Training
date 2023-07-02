@@ -9,9 +9,9 @@ echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>';
 ?>
-    <!-- <form class="container-fluid card d-flex  align-items-center mx-auto col-10 col-md-10 col-lg-6"
+    <form class="container-fluid card d-flex  align-items-center mx-auto col-10 col-md-10 col-lg-6"
      id = "myform"
-     action="add_product_backened.php" method="POST" enctype="multipart/form-data"> -->
+     action="add_product_backened.php" method="POST" enctype="multipart/form-data">
 
         <div class="container-fluid"><h4 class="text-center text-decoration-underline mb-3">Enter your product details</h4></div>
         
@@ -67,7 +67,7 @@ echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
             <a  class="btn btn-primary float-start" onclick="back2()">Back</a>
         </div>
 
-    <!-- </form> -->
+    </form>
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>

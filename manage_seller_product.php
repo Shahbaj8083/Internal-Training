@@ -36,7 +36,7 @@ $id =  $_SESSION['userID'];
 
                         <li class="nav-item">
 
-                            <div class="dropstart" style="position:absolute right:0">
+                            <div class="dropstart" style="position:absolute; right:0">
                                 <a class="dropdown-toggle text-decoration-none text-light" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <?php if($_SESSION['username']) echo $_SESSION['username']; ?> <i

@@ -151,7 +151,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['update'])){
     move_uploaded_file($tname,'images/'.$pname);
 
     $sql = "UPDATE product SET name='$name', des='$des', price=$price, quantity=$quantity,
-            discount=$discount, warehouse='$warehouse', img='$pname',seller_id=$role
+            discount=$discount, warehouse='$warehouse', seller_id=$role
             WHERE p_id=$id";
 
     $res=mysqli_query($conn, $sql); 

@@ -1,6 +1,6 @@
 <?php ?>
-<!-- <form class="container-fluid card d-flex  align-items-center mx-auto col-10 col-md-10 col-lg-6" action="" method="post"
-    enctype="multipart/form-data"> -->
+<form class="container-fluid card d-flex  align-items-center mx-auto col-10 col-md-10 col-lg-6" action="" method="post"
+    enctype="multipart/form-data">
 
     <div class="container-fluid">
         <h4 class="text-center text-decoration-underline mb-3">Enter Payment details</h4>
@@ -45,4 +45,4 @@
         <a class="btn btn-primary float-end" onclick="next1()">Next</a>
     </div>
 
-<!-- </form> -->
+</form>
